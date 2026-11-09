@@ -1,6 +1,6 @@
 # Matchpoint Web
 
-Web companion for [Matchpoint](https://github.com/octapf/matchpoint): browse **public** beach volleyball tournaments, teams, matches, and standings in the browser. It consumes the **same** Matchpoint backend (Vercel serverless API + MongoDB Atlas)—**no database credentials in the client**; all data flows over HTTPS like the mobile app.
+Web companion for [Matchpoint](https://github.com/miralab-ar/matchpoint): browse **public** beach volleyball tournaments, teams, matches, and standings in the browser. It consumes the **same** Matchpoint backend (Vercel serverless API + MongoDB Atlas)—**no database credentials in the client**; all data flows over HTTPS like the mobile app.
 
 **By [Miralab](https://miralab.ar)**
 
@@ -44,7 +44,7 @@ flowchart LR
 | **Styling** | Tailwind CSS v4 (Matchpoint-aligned tokens) |
 | **State** | Redux Toolkit (list + tournament page data) |
 | **Testing** | Jest, React Testing Library |
-| **Backend** | Same as Matchpoint: [Vercel `api/`](https://github.com/octapf/matchpoint) |
+| **Backend** | Same as Matchpoint: [Vercel `api/`](https://github.com/miralab-ar/matchpoint) |
 
 ---
 
@@ -68,7 +68,7 @@ flowchart LR
 ## Quick start
 
 ```bash
-git clone https://github.com/octapf/matchpoint-web.git
+git clone https://github.com/miralab-ar/matchpoint-web.git
 cd matchpoint-web
 cp .env.example .env.local
 # Set NEXT_PUBLIC_MATCHPOINT_API_URL=https://<your-matchpoint-vercel-origin>
@@ -110,7 +110,7 @@ If Matchpoint uses **`CORS_ALLOWED_ORIGINS`**, add this site’s origin (e.g. `h
 Deployments on **push** are handled by **Vercel’s Git integration** (no extra workflow file required).
 
 1. Open [Vercel Dashboard](https://vercel.com) → **Add New…** → **Project**.
-2. **Import** this repository (`octapf/matchpoint-web`). Grant the Vercel GitHub App access to the repo if prompted.
+2. **Import** this repository (`miralab-ar/matchpoint-web`). Grant the Vercel GitHub App access to the repo if prompted.
 3. Configure **Environment Variables**: add `NEXT_PUBLIC_MATCHPOINT_API_URL` (same value as in `.env.local`, no trailing slash).
 4. Click **Deploy**.
 
@@ -127,4 +127,4 @@ Optional: **Settings → Domains** for a custom hostname.
 
 ## Related
 
-- **Mobile + API:** [github.com/octapf/matchpoint](https://github.com/octapf/matchpoint)
+- **Mobile + API:** [github.com/miralab-ar/matchpoint](https://github.com/miralab-ar/matchpoint)
