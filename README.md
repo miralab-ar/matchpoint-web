@@ -84,7 +84,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NEXT_PUBLIC_MATCHPOINT_API_URL` | Yes | Origin of the Matchpoint deployment **without** a trailing slash (e.g. `https://matchpoint.vercel.app`). |
+| `NEXT_PUBLIC_MATCHPOINT_API_URL` | Yes | Origin of the Matchpoint deployment **without** a trailing slash (e.g. `https://<your-api-project>.vercel.app`). It is the API backend from the [matchpoint](https://github.com/miralab-ar/matchpoint) repo, **not** the URL of this site (`https://matchpoint.miralab.ar`). |
 | `NEXT_PUBLIC_TOURNAMENT_POLL_MS` | No | On **tournament detail**, re-fetch interval in ms (clamped 5 000–120 000). Default **15 000** (15s) if unset. Set **`0`** to disable background refresh. |
 
 If Matchpoint uses **`CORS_ALLOWED_ORIGINS`**, add this site’s origin (e.g. `https://matchpoint.miralab.ar` or your Vercel preview URL).

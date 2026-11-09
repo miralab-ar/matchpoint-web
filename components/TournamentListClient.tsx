@@ -107,7 +107,9 @@ export function TournamentListClient() {
               </code>{" "}
               debe tener como <strong className="text-mp-text">valor</strong> la URL
               completa del backend, p. ej.{" "}
-              <code className="text-xs text-mp-yellow">https://matchpoint.miralab.ar</code>{" "}
+              <code className="text-xs text-mp-yellow">
+                {"https://<tu-proyecto-api>.vercel.app"}
+              </code>{" "}
               (con <code className="text-xs">https://</code>). No pongas el nombre de la
               variable como valor.
             </p>

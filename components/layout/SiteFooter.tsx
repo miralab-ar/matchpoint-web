@@ -35,7 +35,7 @@ export function SiteFooter() {
           ·
         </span>
         <a
-          href="https://www.miralab.ar/es/matchpoint/privacy"
+          href="https://miralab.ar/es/matchpoint/privacy"
           target="_blank"
           rel="noopener noreferrer"
           className="text-mp-text-secondary underline-offset-2 transition-colors hover:text-mp-yellow hover:underline"

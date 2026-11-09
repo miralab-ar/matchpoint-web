@@ -1,6 +1,7 @@
 /**
  * Public env: `NEXT_PUBLIC_MATCHPOINT_API_URL` must be a full absolute URL to the Matchpoint
- * deployment (origin only), e.g. `https://matchpoint.miralab.ar`
+ * API deployment (origin only), e.g. `https://<your-api-project>.vercel.app` — not this site's
+ * own URL (`https://matchpoint.miralab.ar`).
  *
  * Do not set the value to the variable name. Do not omit `https://` — or the browser will treat
  * it as a relative path and requests will hit this site (404 + HTML).
