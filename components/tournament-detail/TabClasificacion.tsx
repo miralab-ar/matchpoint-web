@@ -50,10 +50,14 @@ function normalizeStandings(raw: unknown): StandingsDivisionBlock[] {
             : undefined;
         const wins = Number((row as { wins?: unknown })?.wins);
         const points = Number((row as { points?: unknown })?.points);
+        // La API actual manda `teamId` / `teamName` planos; versiones viejas, `team: { _id, name }`.
+        const flat = row as { teamId?: unknown; teamName?: unknown };
+        const id = t?._id ?? flat?.teamId;
+        const name = t?.name ?? flat?.teamName;
         return {
           team: {
-            _id: t?._id != null ? String(t._id) : "—",
-            name: t?.name != null ? String(t.name) : "—",
+            _id: id != null ? String(id) : "—",
+            name: name != null ? String(name) : "—",
           },
           wins: Number.isFinite(wins) ? Math.floor(wins) : 0,
           points: Number.isFinite(points) ? Math.floor(points) : 0,
@@ -160,7 +164,7 @@ export function TabClasificacion({
           >
             <h3
               id={`stand-${String(div.division)}-${divIdx}`}
-              className="mb-3 text-sm font-bold uppercase italic tracking-wide text-mp-yellow"
+              className="mb-3 text-xl font-bold uppercase italic tracking-wide text-mp-yellow"
             >
               {divisionLabel(div.division)}
             </h3>
@@ -172,34 +176,34 @@ export function TabClasificacion({
                   key={`g-${String(div.division)}-${g.groupIndex}`}
                   className="mb-6 last:mb-0"
                 >
-                  <h4 className="mb-2 text-xs font-semibold text-mp-text-secondary">
+                  <h4 className="mb-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-mp-text-secondary">
                     Grupo {Number.isFinite(g.groupIndex) ? g.groupIndex + 1 : "—"}
                   </h4>
-                  <div className="overflow-x-auto rounded-lg border border-mp-surface-light">
+                  <div className="overflow-x-auto rounded-xl border border-mp-border bg-mp-bg/40">
                     <table className="w-full min-w-[280px] text-left text-sm">
                       <thead>
-                        <tr className="border-b border-mp-surface-light bg-mp-surface/80">
+                        <tr className="border-b border-mp-border text-[0.7rem] uppercase tracking-wider">
                           <th
                             scope="col"
-                            className="px-3 py-2 font-semibold text-mp-text"
+                            className="px-3 py-2.5 font-semibold text-mp-text-muted"
                           >
                             #
                           </th>
                           <th
                             scope="col"
-                            className="px-3 py-2 font-semibold text-mp-text"
+                            className="px-3 py-2.5 font-semibold text-mp-text-muted"
                           >
                             Equipo
                           </th>
                           <th
                             scope="col"
-                            className="px-3 py-2 font-semibold text-mp-text"
+                            className="px-3 py-2.5 font-semibold text-mp-text-muted"
                           >
                             PG
                           </th>
                           <th
                             scope="col"
-                            className="px-3 py-2 font-semibold text-mp-text"
+                            className="px-3 py-2.5 font-semibold text-mp-text-muted"
                           >
                             Pts
                           </th>
@@ -209,14 +213,22 @@ export function TabClasificacion({
                         {g.standings.map((row, idx) => (
                           <tr
                             key={`${String(div.division)}-${g.groupIndex}-${idx}`}
-                            className="border-b border-mp-surface-light/80 last:border-0"
+                            className={`border-b border-mp-border/80 last:border-0 ${idx === 0 ? "bg-mp-yellow/[0.06]" : ""}`}
                           >
-                            <td className="px-3 py-2 text-mp-text-muted">{idx + 1}</td>
-                            <td className="px-3 py-2 font-medium text-mp-text">
+                            <td className="w-12 px-3 py-2.5">
+                              <span
+                                className={`mp-score inline-flex h-7 w-7 items-center justify-center rounded-md text-base ${
+                                  idx === 0 ? "bg-mp-yellow text-mp-bg" : "bg-mp-surface-light text-mp-text-secondary"
+                                }`}
+                              >
+                                {idx + 1}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2.5 font-semibold text-mp-text">
                               {row.team.name}
                             </td>
-                            <td className="px-3 py-2 text-mp-text-secondary">{row.wins}</td>
-                            <td className="px-3 py-2 text-mp-text-secondary">{row.points}</td>
+                            <td className="mp-score px-3 py-2.5 text-lg text-mp-text-secondary">{row.wins}</td>
+                            <td className="mp-score px-3 py-2.5 text-lg text-mp-text">{row.points}</td>
                           </tr>
                         ))}
                       </tbody>
