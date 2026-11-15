@@ -8,12 +8,12 @@
   --mp-border: #2e2e36;
   --mp-text: #f4f4f5;
   --mp-text-secondary: #a1a1aa;
-  --mp-text-muted: #71717a;
+  --mp-text-muted: #94949e; /* AA sobre bg, surface y surface-light */
   --mp-yellow: #fbbf24; /* Punto */
   --mp-violet: #8b5cf6; /* Saque */
   --mp-live: #ef4444;
   --mp-error: #ef4444;
-  --mp-tab-inactive: #71717a;
+  --mp-tab-inactive: #94949e;
   --mp-tab-active: #fbbf24;
 }
 
