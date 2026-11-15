@@ -1,44 +1,85 @@
 @import "tailwindcss";
 
-/* Matchpoint-aligned dark theme (see mobile `constants/Colors.ts`) */
+/* Marca Matchpoint (fuente: matchpoint/docs/marca.md y constants/Colors.ts de la app) */
 :root {
-  --mp-bg: #1a1a1a;
-  --mp-surface: #2d2d2d;
-  --mp-surface-light: #3d3d3d;
-  --mp-text: #e5e5e5;
-  --mp-text-secondary: #a3a3a3;
-  --mp-text-muted: #737373;
-  --mp-yellow: #fbbf24;
-  --mp-violet: #8b5cf6;
+  --mp-bg: #121214;
+  --mp-surface: #1c1c21;
+  --mp-surface-light: #2a2a31;
+  --mp-border: #2e2e36;
+  --mp-text: #f4f4f5;
+  --mp-text-secondary: #a1a1aa;
+  --mp-text-muted: #71717a;
+  --mp-yellow: #fbbf24; /* Punto */
+  --mp-violet: #8b5cf6; /* Saque */
+  --mp-live: #ef4444;
   --mp-error: #ef4444;
-  --mp-tab-inactive: #737373;
+  --mp-tab-inactive: #71717a;
   --mp-tab-active: #fbbf24;
 }
 
-/* Slightly smaller UI than browser default 16px (scales all rem-based Tailwind type) */
 html {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
 }
 
 @theme inline {
   --color-mp-bg: var(--mp-bg);
   --color-mp-surface: var(--mp-surface);
   --color-mp-surface-light: var(--mp-surface-light);
+  --color-mp-border: var(--mp-border);
   --color-mp-text: var(--mp-text);
   --color-mp-text-secondary: var(--mp-text-secondary);
   --color-mp-text-muted: var(--mp-text-muted);
   --color-mp-yellow: var(--mp-yellow);
   --color-mp-violet: var(--mp-violet);
+  --color-mp-live: var(--mp-live);
   --color-mp-error: var(--mp-error);
   --color-mp-tab-inactive: var(--mp-tab-inactive);
   --color-mp-tab-active: var(--mp-tab-active);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", ui-sans-serif, sans-serif;
 }
 
 body {
   background: var(--mp-bg);
   color: var(--mp-text);
   font-family: var(--font-sans);
+}
+
+/*
+ * La itálica es la "voz deportiva" de la marca: todo texto itálico en negrita/semi
+ * usa Barlow Condensed (igual que la app, components/ui/Text.tsx).
+ */
+.italic:is(.font-bold, .font-semibold, .font-extrabold, .font-black) {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Números de marcador: condensados y tabulares. */
+.mp-score {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Entrada corta: fundido + subida (docs/marca.md → Movimiento). */
+@keyframes mp-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.mp-enter {
+  animation: mp-enter 220ms cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mp-enter {
+    animation: none;
+  }
 }
 
 /* Dark-theme scrollbars (Firefox + WebKit) */

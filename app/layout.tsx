@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Barlow_Condensed, Inter } from "next/font/google";
 import "./globals.css";
 import { SkipLink } from "@/components/SkipLink";
 import { ReduxProvider } from "@/components/providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** Marca (ver matchpoint/docs/marca.md): Inter para texto, Barlow Condensed para títulos y marcador. */
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -42,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${geistSans.variable} h-full`}>
+    <html lang="es" className={`${inter.variable} ${barlowCondensed.variable} h-full`}>
       <body
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning
