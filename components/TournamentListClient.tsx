@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { AppPromo } from "@/components/home/AppPromo";
 import { HomeTournamentDetail } from "@/components/home/HomeTournamentDetail";
 import { TournamentPickCard } from "@/components/home/TournamentPickCard";
 import { TournamentsCalendar } from "@/components/home/TournamentsCalendar";
@@ -92,6 +93,8 @@ export function TournamentListClient() {
         className="mx-auto flex w-full max-w-6xl flex-1 min-h-0 flex-col overflow-hidden px-4 py-5 sm:px-6 lg:max-w-[100rem] lg:px-8 lg:py-3"
         tabIndex={-1}
       >
+        <AppPromo />
+
         {!configured && (
           <div
             className="rounded-2xl border border-mp-surface-light bg-mp-surface px-5 py-6 text-center"

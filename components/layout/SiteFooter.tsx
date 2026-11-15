@@ -14,14 +14,17 @@ export function SiteFooter() {
         <span aria-hidden className="text-mp-text-muted/50">
           ·
         </span>
-        <a
-          href="https://miralab.ar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-mp-text-secondary underline-offset-2 transition-colors hover:text-mp-yellow hover:underline"
-        >
-          Miralab
-        </a>
+        <span>
+          Matchpoint es un producto de{" "}
+          <a
+            href="https://miralab.ar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-mp-text-secondary underline-offset-2 transition-colors hover:text-mp-yellow hover:underline"
+          >
+            Miralab
+          </a>
+        </span>
         <span aria-hidden className="text-mp-text-muted/50">
           ·
         </span>
