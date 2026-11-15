@@ -16,6 +16,20 @@ export const metadata: Metadata = {
   },
   description:
     "Torneos públicos de vóley playa: listado, equipos, partidos y clasificación. Datos desde la API de Matchpoint.",
+  metadataBase: new URL("https://matchpoint.miralab.ar"),
+  openGraph: {
+    title: "Matchpoint — Torneos de vóley playa",
+    description:
+      "Torneos públicos de vóley playa: listado, equipos, partidos y clasificación.",
+    url: "https://matchpoint.miralab.ar",
+    siteName: "Matchpoint",
+    type: "website",
+    images: ["https://miralab.ar/images/matchpoint-og-v2.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://miralab.ar/images/matchpoint-og-v2.jpg"],
+  },
   icons: {
     icon: "/favicon.png",
     apple: "/matchpoint-app-icon.png",
