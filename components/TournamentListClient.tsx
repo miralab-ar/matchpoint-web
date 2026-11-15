@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { AppPromo } from "@/components/home/AppPromo";
+import { AppPromo, PLAY_STORE_URL } from "@/components/home/AppPromo";
+import { IconTrophyOutline } from "@/components/icons/MatchpointIcons";
 import { HomeTournamentDetail } from "@/components/home/HomeTournamentDetail";
 import { TournamentPickCard } from "@/components/home/TournamentPickCard";
 import { TournamentsCalendar } from "@/components/home/TournamentsCalendar";
@@ -97,7 +98,7 @@ export function TournamentListClient() {
 
         {!configured && (
           <div
-            className="rounded-2xl border border-mp-surface-light bg-mp-surface px-5 py-6 text-center"
+            className="rounded-2xl border border-mp-border bg-mp-surface px-5 py-6 text-center"
             role="status"
           >
             <p className="text-base font-bold text-mp-text">
@@ -120,31 +121,57 @@ export function TournamentListClient() {
         )}
 
         {configured && listStatus === "loading" && (
-          <p className="text-center text-mp-text-secondary" role="status">
-            Cargando torneos…
-          </p>
+          <div
+            className="grid animate-pulse gap-4 lg:grid-cols-[2fr_1fr_1fr]"
+            role="status"
+            aria-busy="true"
+            aria-label="Cargando torneos"
+          >
+            <div className="h-72 rounded-2xl bg-mp-surface" />
+            <div className="h-72 rounded-2xl bg-mp-surface" />
+            <div className="space-y-3">
+              <div className="h-14 rounded-xl bg-mp-surface" />
+              <div className="h-14 rounded-xl bg-mp-surface" />
+            </div>
+          </div>
         )}
 
         {configured && listStatus === "failed" && listError && (
           <div
-            className="rounded-xl border border-red-500/40 bg-mp-surface px-4 py-3 text-sm text-mp-error"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-500/40 bg-mp-surface px-4 py-3 text-sm text-mp-error"
             role="alert"
           >
-            {listError}
+            <span>{listError}</span>
+            <button
+              type="button"
+              onClick={() => void handleRefresh()}
+              className="min-h-11 rounded-lg border border-mp-border px-3 font-semibold text-mp-text hover:bg-mp-surface-light"
+            >
+              Reintentar
+            </button>
           </div>
         )}
 
         {configured && listStatus === "succeeded" && sortedList.length === 0 && (
           <div
-            className="rounded-2xl border border-mp-surface-light bg-mp-surface px-5 py-6 text-center"
+            className="mp-enter flex flex-col items-center rounded-2xl border border-mp-border bg-mp-surface px-5 py-10 text-center"
             role="status"
           >
-            <p className="text-base font-bold text-mp-text">
-              No hay torneos públicos
+            <span className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-mp-yellow/15 text-mp-yellow">
+              <IconTrophyOutline className="h-7 w-7" aria-hidden />
+            </span>
+            <p className="text-lg font-bold text-mp-text">No hay torneos públicos</p>
+            <p className="mt-1 max-w-sm text-sm text-mp-text-secondary">
+              Cuando haya torneos visibles van a aparecer acá. Mientras, podés crear el tuyo desde la app.
             </p>
-            <p className="mt-2 text-sm text-mp-text-muted">
-              Cuando haya eventos visibles, aparecerán aquí.
-            </p>
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-mp-yellow px-4 font-display text-base font-bold uppercase tracking-wide text-mp-bg hover:brightness-110"
+            >
+              Bajar la app
+            </a>
           </div>
         )}
 
@@ -153,21 +180,21 @@ export function TournamentListClient() {
             <div className="mb-2 hidden shrink-0 gap-4 lg:grid lg:grid-cols-[2fr_1fr_1fr]">
               <h2
                 id="cal-heading"
-                className="text-sm font-bold uppercase italic tracking-wide text-mp-yellow"
+                className="flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-['']"
               >
                 Calendario
               </h2>
-              <h2 className="text-sm font-bold uppercase italic tracking-wide text-mp-yellow">
+              <h2 className="flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-['']">
                 Detalle del torneo
               </h2>
-              <h2 className="text-sm font-bold uppercase italic tracking-wide text-mp-yellow">
+              <h2 className="flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-['']">
                 Torneos
               </h2>
             </div>
 
-            <div className="grid min-h-0 grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr_1fr] lg:min-h-0 lg:flex-1 lg:items-stretch lg:gap-3 lg:overflow-hidden">
+            <div className="grid min-h-0 grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr_1fr] lg:min-h-0 lg:flex-1 lg:items-stretch lg:gap-3 lg:overflow-hidden">
               <div className="relative z-0 flex min-h-0 min-w-0 flex-col lg:h-full lg:min-h-0 lg:overflow-hidden">
-                <h2 className="mb-3 text-sm font-bold uppercase italic tracking-wide text-mp-yellow lg:hidden">
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-[''] lg:hidden">
                   Calendario
                 </h2>
                 <TournamentsCalendar
@@ -181,7 +208,7 @@ export function TournamentListClient() {
               </div>
 
               <div className="flex min-h-0 min-w-0 flex-col lg:h-full lg:min-h-0 lg:overflow-hidden">
-                <h2 className="mb-3 text-sm font-bold uppercase italic tracking-wide text-mp-yellow lg:hidden">
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-[''] lg:hidden">
                   Detalle del torneo
                 </h2>
                 <HomeTournamentDetail tournament={selectedTournament} />
@@ -191,10 +218,10 @@ export function TournamentListClient() {
                 className="flex min-h-0 min-w-0 flex-col lg:h-full lg:min-h-0 lg:overflow-hidden"
                 aria-label="Torneos"
               >
-                <h2 className="mb-3 shrink-0 text-sm font-bold uppercase italic tracking-wide text-mp-yellow lg:hidden">
+                <h2 className="mb-3 shrink-0 flex items-center gap-2 text-lg font-bold uppercase italic tracking-wide text-mp-text before:h-4 before:w-1 before:rounded-full before:bg-mp-yellow before:content-[''] lg:hidden">
                   Torneos
                 </h2>
-                <ul className="mp-scrollbar list-none space-y-3 overflow-y-auto pr-1 lg:flex-1 lg:min-h-0 lg:space-y-2">
+                <ul className="mp-scrollbar list-none space-y-2.5 overflow-y-auto pr-1 lg:flex-1 lg:min-h-0">
                   {sortedList.map((t) => (
                     <li key={t._id} className="min-w-0">
                       <TournamentPickCard

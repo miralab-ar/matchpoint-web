@@ -18,24 +18,8 @@ import { TabEquipos } from "@/components/tournament-detail/TabEquipos";
 import { TabJugadores } from "@/components/tournament-detail/TabJugadores";
 import { TabPartidos } from "@/components/tournament-detail/TabPartidos";
 import { TabClasificacion } from "@/components/tournament-detail/TabClasificacion";
-
-function formatRange(start: string, end: string) {
-  try {
-    const s = new Date(start);
-    const e = new Date(end);
-    const opts: Intl.DateTimeFormatOptions = {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    };
-    if (s.toDateString() === e.toDateString()) {
-      return s.toLocaleDateString("es-AR", opts);
-    }
-    return `${s.toLocaleDateString("es-AR", opts)} — ${e.toLocaleDateString("es-AR", opts)}`;
-  } catch {
-    return `${start} — ${end}`;
-  }
-}
+import { formatRange, phaseLabel, statusLabel } from "@/lib/format/tournament";
+import { IconCalendar, IconLocation } from "@/components/icons/MatchpointIcons";
 
 export function TournamentDetailClient({ id }: { id: string }) {
   const dispatch = useAppDispatch();
@@ -114,8 +98,9 @@ export function TournamentDetailClient({ id }: { id: string }) {
       return (
         <TabResumen
           tournament={tournament}
-          formatRange={formatRange}
           waitlistByDivision={waitlistByDivision}
+          teamsTotal={teams.length}
+          entriesTotal={entries.length}
         />
       );
     }
@@ -157,7 +142,7 @@ export function TournamentDetailClient({ id }: { id: string }) {
 
       <main
         id="main-content"
-        className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 lg:px-8"
+        className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
         tabIndex={-1}
       >
         {!configured && (
@@ -190,13 +175,30 @@ export function TournamentDetailClient({ id }: { id: string }) {
         )}
 
         {tournament && detailStatus === "succeeded" && (
-          <article className="rounded-2xl border border-mp-surface-light bg-mp-surface p-5 sm:p-8">
-            <p className="text-sm text-mp-text-muted">
-              {formatRange(tournament.startDate, tournament.endDate)}
-            </p>
-            <p className="mt-1 text-base text-mp-text-secondary">
-              {tournament.location}
-            </p>
+          <article className="mp-enter rounded-2xl border border-mp-border bg-mp-surface p-5 sm:p-8">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-md bg-mp-yellow px-2 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-mp-bg">
+                {statusLabel(tournament.status)}
+              </span>
+              {tournament.phase ? (
+                <span className="rounded-md bg-mp-violet/20 px-2 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-violet-300">
+                  {phaseLabel(tournament.phase)}
+                </span>
+              ) : null}
+            </div>
+            <h2 className="mt-3 text-4xl font-extrabold uppercase italic leading-[0.95] text-mp-text sm:text-5xl">
+              {tournament.name}
+            </h2>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-mp-text-secondary">
+              <span className="inline-flex items-center gap-1.5">
+                <IconCalendar className="h-4 w-4 text-mp-text-muted" aria-hidden />
+                {formatRange(tournament.startDate, tournament.endDate)}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <IconLocation className="h-4 w-4 text-mp-text-muted" aria-hidden />
+                {tournament.location}
+              </span>
+            </div>
 
             <DetailTabs hasMatches={hasMatches} hasStandings={hasStandings}>
               {(active) => renderTab(active)}

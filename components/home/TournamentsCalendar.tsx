@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import type { TournamentListItem } from "@/lib/types/tournament";
+import { IconChevronBack, IconChevronForward } from "@/components/icons/MatchpointIcons";
 import {
   dayInTournamentRange,
   getMonthGrid,
@@ -65,34 +66,34 @@ export function TournamentsCalendar({
 
   return (
     <section
-      className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-mp-violet/35 bg-mp-violet/5 p-2 sm:p-3 lg:h-full lg:min-h-0 lg:p-2.5"
+      className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-mp-border bg-mp-surface p-2.5 sm:p-3 lg:h-full lg:min-h-0 lg:p-3"
       aria-label="Calendario"
     >
-      <div className="mb-2 flex min-w-0 shrink-0 items-center justify-end">
-        <div className="flex min-w-0 max-w-full items-center gap-1">
+      <div className="mb-3 flex min-w-0 shrink-0 items-center justify-between gap-2">
+        <span className="min-w-0 truncate pl-1 text-2xl font-extrabold uppercase italic leading-none text-mp-text">
+          {monthLabel}
+        </span>
+        <div className="flex shrink-0 items-center gap-1.5">
           <button
             type="button"
             onClick={onPrevMonth}
-            className="inline-flex h-8 min-w-8 shrink-0 items-center justify-center rounded-lg border border-mp-surface-light bg-mp-surface px-1.5 text-base leading-none text-mp-text hover:bg-mp-surface-light focus-visible:outline focus-visible:ring-2 focus-visible:ring-mp-yellow lg:h-7 lg:min-w-7 lg:text-sm"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-mp-border bg-mp-bg text-mp-text transition-colors hover:bg-mp-surface-light focus-visible:outline focus-visible:ring-2 focus-visible:ring-mp-yellow lg:h-9 lg:w-9"
             aria-label="Mes anterior"
           >
-            ‹
+            <IconChevronBack className="h-4 w-4" aria-hidden />
           </button>
-          <span className="min-w-0 flex-1 text-center text-xs font-semibold tabular-nums text-mp-text sm:min-w-[9rem] sm:text-sm sm:flex-none">
-            {monthLabel}
-          </span>
           <button
             type="button"
             onClick={onNextMonth}
-            className="inline-flex h-8 min-w-8 shrink-0 items-center justify-center rounded-lg border border-mp-surface-light bg-mp-surface px-1.5 text-base leading-none text-mp-text hover:bg-mp-surface-light focus-visible:outline focus-visible:ring-2 focus-visible:ring-mp-yellow lg:h-7 lg:min-w-7 lg:text-sm"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-mp-border bg-mp-bg text-mp-text transition-colors hover:bg-mp-surface-light focus-visible:outline focus-visible:ring-2 focus-visible:ring-mp-yellow lg:h-9 lg:w-9"
             aria-label="Mes siguiente"
           >
-            ›
+            <IconChevronForward className="h-4 w-4" aria-hidden />
           </button>
         </div>
       </div>
 
-      <div className="grid shrink-0 grid-cols-7 gap-0.5 text-center text-[9px] font-semibold uppercase text-mp-text-muted sm:text-[10px] lg:text-[9px]">
+      <div className="grid shrink-0 grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase tracking-wider text-mp-text-muted sm:text-[11px]">
         {WEEKDAYS.map((w) => (
           <div key={w} className="py-0.5">
             {w}
@@ -101,7 +102,7 @@ export function TournamentsCalendar({
       </div>
 
       <div
-        className="mt-0.5 grid min-h-0 flex-1 grid-cols-7 gap-0.5 sm:gap-0.5 lg:min-h-0 [&>*]:min-h-0"
+        className="mt-1 grid min-h-0 flex-1 grid-cols-7 gap-1 lg:min-h-0 [&>*]:min-h-0"
         style={{
           gridTemplateRows: `repeat(${CAL_ROWS}, minmax(0, 1fr))`,
         }}
@@ -116,9 +117,9 @@ export function TournamentsCalendar({
               key={idx}
               className={`flex min-h-0 flex-col overflow-hidden rounded-md border p-0.5 text-left sm:p-1 lg:rounded-lg ${
                 cell.inCurrentMonth
-                  ? "border-mp-surface-light bg-mp-bg/50"
+                  ? "border-transparent bg-mp-bg/70"
                   : "border-transparent bg-mp-bg/20 opacity-50"
-              } ${isToday ? "ring-1 ring-mp-yellow/60" : ""}`}
+              } ${isToday ? "ring-1 ring-mp-yellow" : ""}`}
             >
               <div
                 className={`shrink-0 text-[10px] font-bold tabular-nums leading-none sm:text-[11px] lg:text-[10px] ${
@@ -136,11 +137,11 @@ export function TournamentsCalendar({
                       type="button"
                       title={t.name}
                       onClick={() => onSelectTournament(t._id)}
-                      className={`min-h-0 w-full shrink-0 truncate rounded px-0.5 py-px text-left text-[8px] font-medium leading-tight sm:text-[9px] lg:text-[8px] ${
+                      className={`min-h-0 w-full shrink-0 truncate rounded px-1 py-0.5 text-left text-[9px] font-semibold leading-tight sm:text-[10px] ${
                         ti % 2 === 0
-                          ? "bg-mp-yellow/20 text-mp-yellow"
-                          : "bg-mp-violet/25 text-mp-violet"
-                      } ${sel ? "ring-1 ring-white" : ""}`}
+                          ? "bg-mp-yellow text-mp-bg"
+                          : "bg-mp-violet text-white"
+                      } ${sel ? "ring-2 ring-white" : ""}`}
                     >
                       {t.name.length > 14 ? `${t.name.slice(0, 12)}…` : t.name}
                     </button>

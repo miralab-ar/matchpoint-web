@@ -17,7 +17,7 @@ export function WaitlistDetailSection({
   if (totalCount === 0 && !anyRows) {
     return (
       <section
-        className="rounded-xl border border-mp-surface-light bg-mp-bg/30 p-4"
+        className="rounded-xl border border-mp-border bg-mp-bg/30 p-4"
         aria-labelledby="wl-empty-h"
       >
         <h3 id="wl-empty-h" className="text-sm font-bold text-mp-yellow">
@@ -50,7 +50,7 @@ export function WaitlistDetailSection({
 
   return (
     <section
-      className="rounded-xl border border-mp-violet/35 bg-mp-violet/5 p-4"
+      className="rounded-xl border border-mp-border bg-mp-bg/40 p-4"
       aria-labelledby="wl-detail-h"
     >
       <h3 id="wl-detail-h" className="text-sm font-bold text-mp-yellow">
@@ -65,10 +65,10 @@ export function WaitlistDetailSection({
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-mp-text-secondary">
                 {divisionLabel(div)}
               </h4>
-              <div className="overflow-x-auto rounded-lg border border-mp-surface-light">
+              <div className="overflow-x-auto rounded-lg border border-mp-border">
                 <table className="w-full min-w-[280px] text-left text-sm">
                   <thead>
-                    <tr className="border-b border-mp-surface-light bg-mp-surface/80">
+                    <tr className="border-b border-mp-border bg-mp-surface/80">
                       <th scope="col" className="px-3 py-2 font-semibold text-mp-text">
                         #
                       </th>
@@ -84,7 +84,7 @@ export function WaitlistDetailSection({
                     {rows.map((row, i) => (
                       <tr
                         key={`${div}-${row.userId}-${row.createdAt}-${i}`}
-                        className="border-b border-mp-surface-light/80 last:border-0"
+                        className="border-b border-mp-border/80 last:border-0"
                       >
                         <td className="px-3 py-2 tabular-nums text-mp-text-muted">{i + 1}</td>
                         <td className="px-3 py-2 font-mono text-xs text-mp-text">

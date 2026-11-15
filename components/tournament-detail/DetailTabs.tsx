@@ -42,11 +42,11 @@ export function DetailTabs({
     : visible[0]?.id ?? "resumen";
 
   return (
-    <div className="mt-4">
+    <div className="mt-6">
       <div
         role="tablist"
         aria-label="Secciones del torneo"
-        className="flex flex-wrap gap-1 rounded-lg border border-mp-violet/45 bg-mp-violet/10 p-1 sm:gap-2 sm:p-1.5"
+        className="mp-scrollbar -mx-1 flex gap-1 overflow-x-auto rounded-full border border-mp-border bg-mp-bg p-1 sm:mx-0"
       >
         {visible.map((tab) => {
           const selected = tab.id === effectiveActive;
@@ -61,12 +61,15 @@ export function DetailTabs({
               aria-selected={selected}
               aria-controls={panelId}
               tabIndex={selected ? 0 : -1}
-              className={`min-h-[44px] flex-1 rounded-md px-3 py-2 text-center text-xs font-semibold uppercase italic tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-yellow sm:min-h-0 sm:flex-none sm:px-4 sm:text-sm ${
+              className={`min-h-11 shrink-0 grow rounded-full px-3 py-2 text-center font-display text-[0.95rem] sm:px-4 sm:text-base font-bold uppercase tracking-wide transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-yellow ${
                 selected
-                  ? "bg-mp-violet text-white"
-                  : "text-mp-text-secondary hover:bg-mp-surface-light/80 hover:text-mp-text"
+                  ? "bg-mp-yellow text-mp-bg"
+                  : "text-mp-text-secondary hover:bg-mp-surface-light hover:text-mp-text"
               }`}
-              onClick={() => setActive(tab.id)}
+              onClick={(e) => {
+                setActive(tab.id);
+                e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+              }}
             >
               {tab.label}
             </button>
@@ -74,10 +77,11 @@ export function DetailTabs({
         })}
       </div>
       <div
+        key={effectiveActive}
         role="tabpanel"
         id={`${baseId}-panel-${effectiveActive}`}
         aria-labelledby={`${baseId}-tab-${effectiveActive}`}
-        className="mt-4 min-h-[120px]"
+        className="mp-enter mt-6 min-h-[120px]"
         tabIndex={0}
       >
         {children(effectiveActive)}

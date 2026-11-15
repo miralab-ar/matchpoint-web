@@ -3,81 +3,80 @@ import type { WaitlistByDivision } from "@/lib/types/waitlist";
 import { WaitlistDetailSection } from "@/components/tournament-detail/WaitlistDetailSection";
 import { categoryLabel } from "@/lib/format/category";
 import { divisionLabel } from "@/lib/format/division";
+import { phaseLabel, statusLabel } from "@/lib/format/tournament";
 
 type TabResumenProps = {
   tournament: TournamentDetail;
-  formatRange: (start: string, end: string) => string;
   waitlistByDivision: WaitlistByDivision;
+  /** Conteos reales de la página (la API de detalle puede mandar 0 en teamsCount/entriesCount). */
+  teamsTotal?: number;
+  entriesTotal?: number;
 };
 
 export function TabResumen({
   tournament: t,
-  formatRange,
   waitlistByDivision,
+  teamsTotal,
+  entriesTotal,
 }: TabResumenProps) {
   const snap = t.categoriesSnapshot;
 
+  const stats: { label: string; value: string | number }[] = [
+    { label: "Equipos", value: Math.max(t.teamsCount ?? 0, teamsTotal ?? 0) },
+    { label: "Jugadores", value: Math.max(t.entriesCount ?? 0, entriesTotal ?? 0) },
+    { label: "En espera", value: t.waitlistCount ?? 0 },
+    { label: "Cupo", value: t.maxTeams },
+  ];
+
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-mp-text-secondary">
-        {formatRange(t.startDate, t.endDate)}
-      </p>
-      <p className="text-sm text-mp-text-muted">{t.location}</p>
+    <div className="space-y-6">
       {t.description ? (
         <p className="text-sm leading-relaxed text-mp-text-secondary">{t.description}</p>
       ) : null}
-      <dl className="grid gap-3 text-sm">
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-2">
-          <dt className="text-mp-text-muted">Estado</dt>
-          <dd className="font-medium text-mp-text">{t.status}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-2">
-          <dt className="text-mp-text-muted">Fase</dt>
-          <dd className="font-medium text-mp-text">{t.phase ?? "—"}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-2">
-          <dt className="text-mp-text-muted">Equipos inscriptos</dt>
-          <dd className="font-medium text-mp-text">{t.teamsCount ?? "—"}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-2">
-          <dt className="text-mp-text-muted">Jugadores</dt>
-          <dd className="font-medium text-mp-text">{t.entriesCount ?? "—"}</dd>
-        </div>
-        <div className="border-b border-mp-surface-light pb-2">
-          <div className="flex justify-between gap-4">
-            <dt className="text-mp-text-muted">Lista de espera</dt>
-            <dd className="font-medium text-mp-text">{t.waitlistCount ?? 0}</dd>
+      <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {stats.map((s) => (
+          <div key={s.label} className="rounded-xl bg-mp-bg/60 px-3 py-3 text-center">
+            <dd className="mp-score text-3xl text-mp-text">{s.value}</dd>
+            <dt className="mt-1 text-[0.7rem] font-semibold uppercase tracking-wider text-mp-text-muted">
+              {s.label}
+            </dt>
           </div>
-          {t.waitlistCountByDivision ? (
-            <p className="mt-2 text-xs text-mp-text-secondary">
-              Por división:{" "}
-              <span className="text-mp-text-muted">
-                {divisionLabel("men")} {t.waitlistCountByDivision.men ?? 0} ·{" "}
-                {divisionLabel("women")} {t.waitlistCountByDivision.women ?? 0} ·{" "}
-                {divisionLabel("mixed")} {t.waitlistCountByDivision.mixed ?? 0}
-              </span>
-            </p>
-          ) : null}
+        ))}
+      </dl>
+      <dl className="grid gap-3 text-sm">
+        <div className="flex justify-between gap-4 border-b border-mp-border pb-2">
+          <dt className="text-mp-text-muted">Estado</dt>
+          <dd className="font-medium text-mp-text">{statusLabel(t.status)}</dd>
         </div>
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-2">
-          <dt className="text-mp-text-muted">Cupo máx. equipos</dt>
-          <dd className="font-medium text-mp-text">{t.maxTeams}</dd>
+        <div className="flex justify-between gap-4 border-b border-mp-border pb-2">
+          <dt className="text-mp-text-muted">Fase</dt>
+          <dd className="font-medium text-mp-text">{phaseLabel(t.phase)}</dd>
         </div>
+        {t.waitlistCountByDivision ? (
+          <div className="flex justify-between gap-4 border-b border-mp-border pb-2">
+            <dt className="text-mp-text-muted">Espera por división</dt>
+            <dd className="text-right font-medium text-mp-text tabular-nums">
+              {divisionLabel("men")} {t.waitlistCountByDivision.men ?? 0} ·{" "}
+              {divisionLabel("women")} {t.waitlistCountByDivision.women ?? 0} ·{" "}
+              {divisionLabel("mixed")} {t.waitlistCountByDivision.mixed ?? 0}
+            </dd>
+          </div>
+        ) : null}
         {(t.pointsToWin != null || t.setsPerMatch != null) && (
           <div className="flex justify-between gap-4 pb-2">
             <dt className="text-mp-text-muted">Reglas</dt>
             <dd className="text-right font-medium text-mp-text">
-              {t.pointsToWin != null ? `${t.pointsToWin} pts / set` : ""}
+              {t.pointsToWin != null ? `${t.pointsToWin} pts por set` : ""}
               {t.pointsToWin != null && t.setsPerMatch != null ? " · " : ""}
-              {t.setsPerMatch != null ? `${t.setsPerMatch} set(s)` : ""}
+              {t.setsPerMatch != null ? `${t.setsPerMatch} ${t.setsPerMatch === 1 ? "set" : "sets"}` : ""}
             </dd>
           </div>
         )}
       </dl>
 
       {snap?.divisions?.length ? (
-        <section className="rounded-xl border border-mp-violet/35 bg-mp-violet/5 p-4" aria-labelledby="cat-snap-h">
-          <h3 id="cat-snap-h" className="text-sm font-bold text-mp-yellow">
+        <section className="rounded-xl border border-mp-border bg-mp-bg/40 p-4" aria-labelledby="cat-snap-h">
+          <h3 id="cat-snap-h" className="text-lg font-bold uppercase italic text-mp-yellow">
             Categorías (Oro · Plata · Bronce)
           </h3>
           <p className="mt-1 text-xs text-mp-text-muted">

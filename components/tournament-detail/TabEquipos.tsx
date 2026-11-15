@@ -126,10 +126,10 @@ export function TabEquipos({
           },
         ]}
       />
-      <div className="overflow-x-auto rounded-lg border border-mp-surface-light">
+      <div className="overflow-x-auto rounded-lg border border-mp-border">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead>
-            <tr className="border-b border-mp-surface-light bg-mp-surface/80">
+            <tr className="border-b border-mp-border bg-mp-surface/80">
               <th scope="col" className="px-3 py-2 font-semibold text-mp-text">
                 Equipo
               </th>
@@ -165,7 +165,7 @@ export function TabEquipos({
               return (
                 <tr
                   key={team._id}
-                  className="border-b border-mp-surface-light/80 last:border-0"
+                  className="border-b border-mp-border/80 last:border-0"
                 >
                   <td className="px-3 py-2 font-semibold text-mp-text">{team.name}</td>
                   <td className="px-3 py-2 text-mp-text-secondary">

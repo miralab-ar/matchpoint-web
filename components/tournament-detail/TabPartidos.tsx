@@ -145,7 +145,7 @@ export function TabPartidos({
               <li key={m._id}>
                 <Link
                   href={href}
-                  className="block rounded-lg border border-mp-surface-light bg-mp-bg/40 px-3 py-3 text-sm transition-colors hover:border-mp-violet/50 hover:bg-mp-bg/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-yellow"
+                  className="block rounded-xl border border-mp-border bg-mp-bg/40 px-4 py-3 text-sm transition-colors hover:border-mp-yellow/60 hover:bg-mp-bg/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-yellow"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-mp-text-secondary">
@@ -160,11 +160,11 @@ export function TabPartidos({
                         : ""}
                     </span>
                     <span className="flex items-center gap-2">
-                      <span className="text-xs font-medium text-mp-yellow">{score}</span>
+                      <span className="mp-score text-xl text-mp-yellow">{score}</span>
                       <IconChevronForward className="h-4 w-4 shrink-0 text-mp-text-muted" aria-hidden />
                     </span>
                   </div>
-                  <p className="mt-2 font-medium text-mp-text">
+                  <p className="mt-2 font-semibold text-mp-text">
                     {left} <span className="text-mp-text-muted">vs</span> {right}
                   </p>
                   <p className="mt-2 text-xs text-mp-yellow">Ver detalle del partido</p>

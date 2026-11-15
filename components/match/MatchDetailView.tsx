@@ -100,7 +100,7 @@ export function MatchDetailView({
         <DataRefreshButton />
       </div>
 
-      <div className="rounded-2xl border border-mp-surface-light bg-mp-surface p-4 sm:p-6">
+      <div className="rounded-2xl border border-mp-border bg-mp-surface p-4 sm:p-6">
         <p className="text-center text-[11px] font-black uppercase italic tracking-[0.08em] text-mp-text-muted">
           {tournament.name}
         </p>
@@ -134,7 +134,7 @@ export function MatchDetailView({
 
         {/* Mobile-style scoreBoard: two columns, yellow tint | violet tint */}
         <div
-          className={`mt-6 flex overflow-hidden rounded-2xl border border-mp-surface-light ${
+          className={`mt-6 flex overflow-hidden rounded-2xl border border-mp-border ${
             isCompleted ? "bg-mp-surface" : ""
           }`}
         >
@@ -155,7 +155,7 @@ export function MatchDetailView({
             ) : null}
             <div className="flex min-h-0 flex-1 w-full items-center justify-center py-2">
               <span
-                className={`max-w-full text-center text-6xl font-black italic leading-none tabular-nums text-mp-yellow sm:text-7xl md:text-8xl ${
+                className={`max-w-full text-center mp-score text-7xl text-mp-yellow sm:text-8xl md:text-9xl ${
                   loserDimA ? "opacity-30" : ""
                 }`}
               >
@@ -186,7 +186,7 @@ export function MatchDetailView({
             ) : null}
             <div className="flex min-h-0 flex-1 w-full items-center justify-center py-2">
               <span
-                className={`max-w-full text-center text-6xl font-black italic leading-none tabular-nums text-mp-violet sm:text-7xl md:text-8xl ${
+                className={`max-w-full text-center mp-score text-7xl text-mp-violet sm:text-8xl md:text-9xl ${
                   loserDimB ? "opacity-30" : ""
                 }`}
               >
@@ -206,7 +206,7 @@ export function MatchDetailView({
         ) : null}
 
         {sets.length > 0 ? (
-          <ul className="mt-4 space-y-1.5 border-t border-mp-surface-light pt-4 text-sm text-mp-text-secondary">
+          <ul className="mt-4 space-y-1.5 border-t border-mp-border pt-4 text-sm text-mp-text-secondary">
             {sets.map((row, i) => {
               const pa = Number(row?.pointsA);
               const pb = Number(row?.pointsB);
@@ -214,7 +214,7 @@ export function MatchDetailView({
               return (
                 <li
                   key={i}
-                  className="flex justify-between rounded-lg bg-mp-bg/40 px-3 py-2 font-mono text-mp-text tabular-nums"
+                  className="flex justify-between rounded-lg bg-mp-bg/40 px-3 py-2 mp-score text-lg text-mp-text"
                 >
                   <span className="text-mp-text-muted">Set {i + 1}</span>
                   <span>
@@ -229,17 +229,17 @@ export function MatchDetailView({
         ) : null}
       </div>
 
-      <dl className="rounded-2xl border border-mp-surface-light bg-mp-surface/80 p-4 text-sm">
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light pb-3">
+      <dl className="rounded-2xl border border-mp-border bg-mp-surface/80 p-4 text-sm">
+        <div className="flex justify-between gap-4 border-b border-mp-border pb-3">
           <dt className="text-xs font-extrabold text-mp-text-secondary">Estado</dt>
           <dd className="font-semibold text-mp-text">{statusLabel(match.status)}</dd>
         </div>
-        <div className="flex justify-between gap-4 border-b border-mp-surface-light py-3">
+        <div className="flex justify-between gap-4 border-b border-mp-border py-3">
           <dt className="text-xs font-extrabold text-mp-text-secondary">Etapa</dt>
           <dd className="text-right font-semibold text-mp-text">{stageLabel(match.stage)}</dd>
         </div>
         {match.division ? (
-          <div className="flex justify-between gap-4 border-b border-mp-surface-light py-3">
+          <div className="flex justify-between gap-4 border-b border-mp-border py-3">
             <dt className="text-xs font-extrabold text-mp-text-secondary">División</dt>
             <dd className="text-right font-semibold text-mp-text">
               {divisionLabel(match.division)}
@@ -247,7 +247,7 @@ export function MatchDetailView({
           </div>
         ) : null}
         {match.groupIndex != null ? (
-          <div className="flex justify-between gap-4 border-b border-mp-surface-light py-3">
+          <div className="flex justify-between gap-4 border-b border-mp-border py-3">
             <dt className="text-xs font-extrabold text-mp-text-secondary">Grupo</dt>
             <dd className="text-right font-semibold text-mp-text">
               {Number.isFinite(match.groupIndex) ? match.groupIndex + 1 : "—"}
